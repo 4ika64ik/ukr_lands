@@ -25,7 +25,7 @@ const OrderForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://veng-vnz.com/api/apply', {
+      const response = await fetch('https://www.veng-vnz.com/api/apply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
