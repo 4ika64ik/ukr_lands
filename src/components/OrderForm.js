@@ -6,11 +6,18 @@ const OrderForm = () => {
   const [phone, setPhone] = useState('');
   const [timeLeft, setTimeLeft] = useState(600); // 10 минут в секундах
   const [message, setMessage] = useState('');
+  const [ip, setIp] = useState('');
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prevTime => (prevTime > 0 ? prevTime - 1 : 0));
     }, 1000);
+
+    // Fetch the client's IP address
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => setIp(data.ip))
+      .catch(error => console.error('Error fetching IP:', error));
 
     return () => clearInterval(timer);
   }, []);
@@ -23,7 +30,7 @@ const OrderForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, phone }),
+        body: JSON.stringify({ name, phone, ip }),
       });
 
       if (response.ok) {
